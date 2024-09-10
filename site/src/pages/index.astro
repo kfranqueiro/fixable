@@ -13,7 +13,12 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
     </p>
     <p>This page summarizes the accessibility issues from WCAG 2 and WCAG 3 for each section of the site. 
     <p>
-      <strong>Reminder:</strong> This site is an example only. The contents are made up and it does not perform real sign-in or payment processing. Do not enter real information!
+      <strong>Reminder:</strong> This site is an example only.
+      The contents are made up and it does not perform real sign-in or payment processing.
+      Do not enter real information!
+    </p>
+    <p>
+      (The site also does not actually store cookies, despite what the home page might suggest.)
     </p>
   </section>
 
@@ -57,7 +62,12 @@ import MetaLayout from "@/layouts/MetaLayout.astro";
         <dt>2.4.9 Link Purpose (Link Only)</dt>
         <dd>
           The Read More and Explore link text does not provide enough information to know which links go where.
-        </dd>   
+        </dd>
+        <dt>2.4.11 and 2.4.12: Focus not Obscured</dt>
+        <dd>
+          The cookie notice at the bottom-left of the page fully obscures some of the footer links,
+          which occur before it in the document's focus order.
+        </dd>
         <dt>3.2.2: On Input</dt>
         <dd>
           The search box automatically performs the search and changes to

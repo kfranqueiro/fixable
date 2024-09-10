@@ -20,6 +20,7 @@ export const storeSchema = z.object({
     )
     .default({}),
   favorites: z.record(z.string(), z.boolean()).default({}),
+  hasDismissedCookieBanner: z.boolean().default(false),
   loggedInAt: z.string().datetime().nullable().default(null),
   registration: z.object({
     email: z.string().email(),

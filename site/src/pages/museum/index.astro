@@ -1,8 +1,9 @@
 ---
 import { getCollection, getEntry } from "astro:content";
+import Carousel from "@/components/Carousel.astro";
+import CookieBanner from "@/components/CookieBanner.astro";
 import CoverImage from "@/components/CoverImage.astro";
 import Layout from "@/layouts/Layout.astro";
-import Carousel from "@/components/Carousel.astro";
 
 const featuredCategories = (await getCollection("exhibit-categories")).filter(
   ({ data }) => !!data.topDescription && !!data.topImageItem
@@ -63,6 +64,7 @@ const carouselEntries = [
   <div class="cards-footer">
     <a href="collections/">Our collections &rArr;</a>
   </div>
+  <CookieBanner slot="end" />
 </Layout>
 
 <style>

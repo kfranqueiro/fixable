@@ -1,0 +1,81 @@
+---
+import { getMode } from "@/lib/mode";
+import ConditionalParent from "./ConditionalParent.astro";
+import Fixable from "./Fixable.astro";
+
+const isBroken = getMode() === "broken";
+---
+
+<ConditionalParent as="div" if={isBroken} id="cookie-banner" hidden>
+  <ConditionalParent as="dialog" if={!isBroken} id="cookie-banner">
+    <h2>We use cookies to personalize your experience.</h2>
+    <div class="container">
+      <div>
+        <p>
+          We store cookies on your device because they are delicious. If you are
+          fine with us doing whatever we want, click <strong>Accept All</strong
+          >.
+        </p>
+        <p>
+          We recognize that some visitors value privacy above extra
+          functionality. To lose out on some features instead, click <strong
+            >Reject All</strong
+          >.
+        </p>
+      </div>
+      <Fixable as="form" action="#" fixed={{ method: "dialog" }}>
+        <button>Accept All</button>
+        <button>Reject All</button>
+      </Fixable>
+    </div>
+  </ConditionalParent>
+</ConditionalParent>
+
+<script>
+  import { persist, recall } from "@/lib/client/store";
+
+  const el = document.getElementById("cookie-banner")!;
+
+  if (!recall("hasDismissedCookieBanner")) {
+    if (el.tagName === "DIALOG") (el as HTMLDialogElement).show();
+    else el.hidden = false;
+  }
+
+  el.querySelector("form")!.addEventListener("submit", (event) => {
+    if (el.tagName !== "DIALOG") {
+      event.preventDefault();
+      el.hidden = true;
+    }
+    persist("hasDismissedCookieBanner", true);
+  });
+</script>
+
+<style>
+  #cookie-banner {
+    background-color: var(--white);
+    border-top-right-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    max-width: 65ch;
+    padding: 0 calc(1rem * var(--ms5)) 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: calc(1rem * var(--ms5));
+  }
+
+  button {
+    width: 10rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>
